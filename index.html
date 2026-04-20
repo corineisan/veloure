@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Velouré</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,15 +14,15 @@
 
     <header class="navbar">
         <div class="logo">Velouré</div> 
-        <nav class="nav-links">
-            <a href="#">Products</a>
+
+        <div class="nav-right"></div>
+          <nav class="nav-links">
+            <a href="#">Home</a>
             <a href="#">About Us</a>
-            <a href="#">Contact</a>
-            </nav>
+            <a href="#">Products</a>
+            <img src="images/cart.png" alt="Cart">
+          </nav>
             <!-- <span class="cart">🛒</span> -->
-             <div class="cart">
-                <img src="images/cart.png" alt="Cart">
-             </div>
     </header>
 
     <!-- hero section -->
@@ -28,7 +30,7 @@
    <section class="hero">
     <div class="hero-text">
         <h1>Elevate your home with Velouré.</h1>
-        <button onclick="scrollToProducts()">Shop Now</button>  <!-- class="shop-now" -->
+        <button onclick="scrollToProducts()">Shop Now</button> 
     </div>
     <div class="hero-image">
         <img src="images/image-40.png" alt="Sofa">
@@ -39,17 +41,17 @@
     <section class="benefits">
         <div class="benefit">
             <img src="images/hand-made.png" class="benefit-icon">
-            <p>Handmade quality</p>
+            <p>Handmade <br> quality</p>
         </div>
 
         <div class="benefit">
             <img src="images/premium.png" class="benefit-icon">
-            <p>Premium materials</p>
+            <p>Premium <br> materials</p>
         </div>
 
         <div class="benefit">
             <img src="images/eco.png" class="benefit-icon">
-            <p>Eco-friendly solutions</p>
+            <p>Eco-friendly <br> solutions</p>
         </div>
     </section>
 
@@ -57,13 +59,9 @@
      <section id="products" class="products">
         <div class="scroll-text">
             <div class="scroll-track">
-                <span>Featured Collection  Featured Collection  Featured Collection</span>
-                <span>Featured Collection  Featured Collection  Featured Collection</span>
+                <span>Featured Collection                     Featured Collection                     Featured Collection</span>
+                <span>Featured Collection                     Featured Collection                     Featured Collection</span>
             </div>
-        </div>
-        <!-- <h2>Featured Collection</h2> -->
-        <div class="circle-text">
-            Yellow armchair • Green sofa • Wooden table • Grey nightstand •
         </div>
 
         <div class="product-grid">
@@ -128,18 +126,39 @@
             <div class="review-card">
                 <img src="images/first.png" class="review-img">
                 <h3>Claudia Alves ⏐ Paris</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
                 <p>Absolutely love the quality and design. It completely transformed my living room.</p>
             </div>
 
             <div class="review-card">
                 <img src="images/men.png" class="review-img">
                 <h3>Yanis Petros ⏐ London</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
                 <p>Fast delivery and amazing attention to detail. The sofa is even more beautiful in real life.</p>
             </div>
 
             <div class="review-card">
                 <img src="images/women.png" class="review-img">
                 <h3>Olivia Wilson ⏐ Chișinău</h3>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
                 <p>Very comfortable and elegant furniture. You can really feel the quality.</p>
             </div>
         </div>
@@ -149,13 +168,13 @@
         <footer class="footer">
 
             <div class="footer-social">
-                <a href="#">
+                <a href="https://www.tiktok.com/@sweet.corineisan?_r=1&_t=ZS-95hrFQTZhNU">
                     <img src="images/tiktok.png" alt="TikTok">
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/corina__654?igsh=MTZzbm1tYWtoM2xhbA%3D%3D&utm_source=qr">
                     <img src="images/instagram.png" alt="Instagram">
                 </a>
-                <a href="#">
+                <a href="https://www.facebook.com/share/1TyGj3JLKG/?mibextid=wwXIfr">
                     <img src="images/facebook.png" alt="Facebook">
                 </a>
             </div>
@@ -167,9 +186,9 @@
             <div class="footer-contact">
                 <h3>Contacts</h3>
                 <p>Online manager</p>
-                <p>+37367932601</p>
+                <p><b>+37367932601</b></p>
                 <p>Customer support</p>
-                <p>+37369448120</p>
+                <p><b>+37369448120</b></p>
             </div>
         </footer>
 <script>
