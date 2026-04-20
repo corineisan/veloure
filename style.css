@@ -1,0 +1,102 @@
+/* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #CECCCA;
+    color: #111;
+}
+ 
+.hero {
+    height: 100vh;
+    background: url("images/image-40.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 60px;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar a, .logo {
+    color: white;
+}
+
+.hero-text {
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    max-width: 600px;
+}
+
+.hero-text button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    cursor:pointer;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+ .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 60px;
+    background: white;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.cart {
+    display: flex;
+    align-items: center;
+}
+
+.cart img {
+    width: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.hero {
+    height: 100vh;
+    background: url("images/image-40.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+} */

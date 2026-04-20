@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velouré</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <!-- navbar -->
+
+    <header class="navbar">
+        <div class="logo">Velouré</div> 
+        <nav class="nav-links">
+            <a href="#">Products</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            </nav>
+            <!-- <span class="cart">🛒</span> -->
+             <div class="cart">
+                <img src="images/cart.png" alt="Cart">
+             </div>
+    </header>
+
+    <!-- hero section -->
+
+   <section class="hero">
+    <div class="hero-text">
+        <h1>Elevate your home with Velouré.</h1>
+        <button onclick="scrollToProducts()">Shop Now</button>  <!-- class="shop-now" -->
+    </div>
+    <div class="hero-image">
+        <img src="images/image-40.png" alt="Sofa">
+    </div>
+   </section>
+
+   <!-- benefits section -->
+    <section class="benefits">
+        <div class="benefit">
+            <img src="images/hand-made.png" class="benefit-icon">
+            <p>Handmade quality</p>
+        </div>
+
+        <div class="benefit">
+            <img src="images/premium.png" class="benefit-icon">
+            <p>Premium materials</p>
+        </div>
+
+        <div class="benefit">
+            <img src="images/eco.png" class="benefit-icon">
+            <p>Eco-friendly solutions</p>
+        </div>
+    </section>
+
+    <!-- products section -->
+     <section id="products" class="products">
+        <div class="scroll-text">
+            <div class="scroll-track">
+                <span>Featured Collection  Featured Collection  Featured Collection</span>
+                <span>Featured Collection  Featured Collection  Featured Collection</span>
+            </div>
+        </div>
+        <!-- <h2>Featured Collection</h2> -->
+        <div class="circle-text">
+            Yellow armchair • Green sofa • Wooden table • Grey nightstand •
+        </div>
+
+        <div class="product-grid">
+            <div class="card">
+                <img src="images/yellowww.png">
+                <h3>Yellow armchair</h3>
+                <p>$120</p>
+            </div>
+
+            <div class="card">
+                <img src="images/green-sofa.png">
+                <h3>Green sofa</h3>
+                <p>$350</p>
+            </div>
+
+            <div class="card">
+                <img src="images/table.png">
+                <h3>Wooden table</h3>
+                <p>$200</p>
+            </div>
+
+            <div class="card">
+                <img src="images/nightstand-grey.png">
+                <h3>Grey nightstand</h3>
+                <p>$150</p>
+            </div>
+        </div>
+     </section>
+
+     <!-- about section -->
+      <section class="about">
+        <div class="about-text">
+            <h2>About Velouré</h2>
+            <p>At Velouré, we believe in creating furniture that transforms houses into homes. 
+                With a commitment to quality and style, our pieces bring your vision to life.</p>
+                <button>Learn more about us</button>
+        </div>
+        <div class="hero-image">
+        <img src="images/image 41.png" alt="interior">
+    </div>
+      </section>
+
+      <!--stats section -->
+        <section class="stats">
+            <div class="stat">
+                <h2>12+</h2>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat">
+                <h2>1.500+</h2>
+                <p>Projects Completed</p>
+            </div>
+            <div class="stat">
+                <h2>4.9</h2>
+                <p>Rating</p>
+            </div>
+        </section>
+
+      <!-- reviews section -->
+       <section class="reviews">
+        <div class="reviews-container">
+            <div class="review-card">
+                <img src="images/first.png" class="review-img">
+                <h3>Claudia Alves ⏐ Paris</h3>
+                <p>Absolutely love the quality and design. It completely transformed my living room.</p>
+            </div>
+
+            <div class="review-card">
+                <img src="images/men.png" class="review-img">
+                <h3>Yanis Petros ⏐ London</h3>
+                <p>Fast delivery and amazing attention to detail. The sofa is even more beautiful in real life.</p>
+            </div>
+
+            <div class="review-card">
+                <img src="images/women.png" class="review-img">
+                <h3>Olivia Wilson ⏐ Chișinău</h3>
+                <p>Very comfortable and elegant furniture. You can really feel the quality.</p>
+            </div>
+        </div>
+       </section>
+
+       <!-- footer -->
+        <footer class="footer">
+
+            <div class="footer-social">
+                <a href="#">
+                    <img src="images/tiktok.png" alt="TikTok">
+                </a>
+                <a href="#">
+                    <img src="images/instagram.png" alt="Instagram">
+                </a>
+                <a href="#">
+                    <img src="images/facebook.png" alt="Facebook">
+                </a>
+            </div>
+
+            <div class="footer-logo">
+                <img src="images/logo alb.png" alt="Velouré logo">
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contacts</h3>
+                <p>Online manager</p>
+                <p>+37367932601</p>
+                <p>Customer support</p>
+                <p>+37369448120</p>
+            </div>
+        </footer>
+<script>
+    function scrollToProducts() {
+        const section = document.getElementById("products");
+        const cards = section.querySelectorAll(".card");
+
+        section.scrollIntoView({
+            behavior: "smooth"
+        });
+        setTimeout(() =>{
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add("show");
+                }, index * 200); // Delay each card animation by 200ms
+            });
+        }, 400);
+    }
+</script>
+</body>
+</html>
