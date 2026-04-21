@@ -50,7 +50,7 @@ button {
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 600;
   letter-spacing: 1.5px;
   color: #2b2520;
@@ -67,7 +67,7 @@ button {
 }
 
 .nav-links a {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   color: #2b2520;
   position: relative;
@@ -85,7 +85,7 @@ button {
 .nav-links a:hover::after { width: 100%; }
 
 .nav-links img {
-  width: 20px; height: 20px;
+  width: 32px; height: 32px;
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.25s ease;
@@ -101,7 +101,7 @@ button {
   justify-content: center;
 }
 
-/* Wrap hero image + text into one rounded card */
+/* wrap hero image + text into one rounded card */
 .hero-image {
   position: relative;
   width: 100%;
@@ -125,9 +125,10 @@ button {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 2;
-  color: var(--text);
+  color: #2b2520;
   width: 90%;
   max-width: 600px;
+  font-family: "Playfair Display", serif;
 }
 
 /* Move .hero-text inside .hero-image visually using absolute layout
@@ -141,19 +142,19 @@ button {
 }
 
 .hero-text h1 {
-  font-size: clamp(26px, 3.4vw, 44px);
+  font-size: 64px;
   font-weight: 500;
   line-height: 1.2;
   margin-bottom: 22px;
-  color: var(--text);
+  color: #805C36;
 }
 
 .hero-text button {
-  background: var(--bg-dark);
-  color: var(--text-light);
+  background: #412819;
+  color: #f3ece1;
   padding: 11px 30px;
   border-radius: 30px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.5px;
   transition: transform 0.25s ease, background 0.25s ease;
@@ -169,7 +170,7 @@ button {
   justify-content: center;
   gap: 80px;
   padding: 36px 36px;
-  background: var(--bg-soft);
+  background: #ece4d4;
   flex-wrap: wrap;
 }
 
@@ -182,13 +183,13 @@ button {
 }
 
 .benefit-icon {
-  width: 36px; height: 36px;
+  width: 64px; height: 64px;
   object-fit: contain;
   opacity: 0.85;
 }
 
 .benefit p {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   color: #362A16;
   letter-spacing: 0.4px;
@@ -202,11 +203,11 @@ button {
   overflow: hidden;
 }
 
-/* Big "Featured Collection" band on grey */
+/* big "Featured Collection" band on grey */
 .scroll-text {
   width: 100%;
   overflow: hidden;
-  background: var(--bg-grey);
+  background: #b9b3aa;
   padding: 22px 0;
 }
 
