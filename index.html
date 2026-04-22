@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Velouré</title>
+    <link rel="icon" type="image/png" sizes="36x36" href="images/logo-negru.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -17,16 +18,14 @@
 
         <div class="nav-right"></div>
           <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Products</a>
-            <img src="images/cart.png" alt="Cart">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products.html">Products</a>
+            <img src="images/cart.png" alt="Cart" onclick="window.location.href='cart.html'">
           </nav>
-            <!-- <span class="cart">🛒</span> -->
     </header>
 
     <!-- hero section -->
-
    <section class="hero">
     <div class="hero-text">
         <h1>Elevate your home <br> with Velouré.</h1>
@@ -56,7 +55,7 @@
     </section>
 
     <!-- products section -->
-     <section id="products" class="products">
+     <section id="featuredproducts" class="products">
         <div class="scroll-text">
             <div class="scroll-track">
                 <span>Featured Collection                     Featured Collection                     Featured Collection</span>
@@ -64,7 +63,7 @@
             </div>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="slider">
             <div class="card">
                 <img src="images/yellowww.png">
                 <h3>Yellow armchair</h3>
@@ -88,6 +87,11 @@
                 <h3>Grey nightstand</h3>
                 <p>$150</p>
             </div>
+        </div>
+           <div class="arrow-click left"></div>
+           <div class="arrow-click right"></div>
+        <div class="products-see">
+            <button onclick="window.location.href='products.html'">See all products</button>
         </div>
      </section>
 
@@ -180,15 +184,17 @@
             </div>
 
             <div class="footer-logo">
-                <img src="images/logo alb.png" alt="Velouré logo">
-            </div>
+                <a href="index.html">
+                    <img src="images/logo alb.png" alt="Velouré Logo">
+                </a>
+             </div>
 
             <div class="footer-contact">
                 <h3>Contacts</h3>
                 <p>Online manager</p>
-                <p><b>+37367932601</b></p>
+                <button><p><b>+37367932601</b></p></button>
                 <p>Customer support</p>
-                <p><b>+37369448120</b></p>
+                <button><p><b>+37369448120</b></p></button>
             </div>
         </footer>
 <script>
@@ -208,5 +214,6 @@
         }, 400);
     }
 </script>
+<script src="script.js"></script>
 </body>
 </html>

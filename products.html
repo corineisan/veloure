@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velouré — Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Navbar with border + background ── */
+    .navbar {
+      background: #f3ece1;
+      border-bottom: 1.5px solid #d4bfaa;
+      box-shadow: 0 2px 12px rgba(65,40,25,0.07);
+    }
+
+    /* heading */
+    .products-page-hero {
+      background: #f3ece1;
+      padding: 48px 36px 36px;
+      text-align: center;
+    }
+    .products-page-hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(26px, 4vw, 48px);
+      font-weight: 500;
+      color: #2b2520;
+      margin-bottom: 6px;
+    }
+    .products-page-hero p {
+      font-size: 14px;
+      color: #7a6a5a;
+    }
+
+    /* ── Category section: pink edges via padding + inner white/neutral center ── */
+    .categories-section {
+      background: linear-gradient(
+        to bottom,
+        rgba(236, 228, 212, 0.705),
+        rgba(255, 255, 255, 0.829)
+      );
+      padding: 52px 0 56px;
+      position: relative;
+    } 
+
+    /* Inner container that creates the centered panel effect */
+    .categories-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+      margin-bottom: 40px;
+    } 
+
+    /* ── 3 + 2 grid layout ── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px 0;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Row 2: 2 items centered — use a sub-grid or flex trick */
+    .categories-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 0;
+    }
+
+    .categories-row-1 {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-bottom: 36px;
+    }
+
+    .categories-row-2 {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: "Montserrat", sans-serif;
+      transition: transform 0.28s ease;
+    }
+    .cat-btn:hover { transform: translateY(-6px); transition: 0.3s;}
+    .cat-btn:hover .cat-circle { box-shadow: 0 10px 32px rgba(43,37,32,.22); }
+    .cat-btn.active .cat-circle {
+      outline: 3px solid #412819;
+      outline-offset: 4px;
+    }
+
+    .cat-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e8ddd0;
+      transition: box-shadow 0.28s ease;
+    }
+    .cat-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cat-btn span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2b2520;
+      letter-spacing: 0.3px;
+    }
+
+    .divider {
+      width: 80%;
+      height: 2px;
+      margin: 50px auto;
+      background: linear-gradient(
+        to right, 
+        transparent, 
+        rgba(43,37, 32, 0.2),
+        rgba(43,37, 32, 0.4), 
+        rgba(43,37, 32, 0.2),
+        transparent);
+    }
+    /* ── All Products grid ── */
+    .all-products {
+      background: #f3ece1;
+      padding: 60px 36px 80px;
+    }
+    .all-products h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 500;
+      color: #2b2520;
+      margin-bottom: 12px;
+      margin-top: 20px;
+      position: relative;
+      text-align: center;
+    }
+    .all-products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .all-products-grid .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .all-products-grid .card img {
+      height: 160px;
+      object-fit: contain;
+    }
+
+    .add-to-cart-btn {
+      margin-top: 12px;
+      background: #412819;
+      color: #f3ece1;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      transition: background 0.25s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+    }
+    .add-to-cart-btn:hover {
+      background: #6b4226;
+      transform: translateY(-2px);
+    }
+    .add-to-cart-btn.added {
+      background: #7a9a6a;
+    }
+
+    .card.reveal { opacity: 0; transform: translateY(24px); }
+    .card.reveal.show { opacity: 1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
+    #active-label {
+      text-align: center;
+      font-size: 13px;
+      color: #7a6a5a;
+      margin-bottom: 28px;
+      min-height: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .all-products-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .all-products-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-circle { width: 110px; height: 110px; }
+      .categories-row-1, .categories-row-2 { gap: 28px; }
+    }
+    @media (max-width: 480px) {
+      .all-products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .categories-section { padding: 36px 0 40px; }
+      .categories-row-1, .categories-row-2 { gap: 16px; }
+      .cat-circle { width: 90px; height: 90px; }
+      .cat-btn span { font-size: 12px; }
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #2b2520;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 640px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; right: 20px; background: #f3ece1; border-radius: 12px; padding: 18px 26px; gap: 16px; z-index: 99; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+      .nav-links.mobile-open { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- navbar -->
+  <header class="navbar">
+    <div class="logo">Velouré</div>
+    <div class="nav-right"></div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="products.html" class="active">Products</a>
+      <img src="images/cart.png" alt="Cart" onclick="window.location.href='cart.html'">
+    </nav>
+  </header>
+
+  <!-- Page heading -->
+  <section class="products-page-hero">
+    <h1>Explore Our Collection</h1>
+    <p>Handcrafted furniture for every room in your home</p>
+  </section>
+
+  <!-- Category circles: 3 on top, 2 below, pink bg as edges -->
+  <section class="categories-section">
+    <div class="categories-inner">
+
+      <!-- Row 1: 3 items -->
+      <div class="categories-row-1">
+        <button class="cat-btn active" data-category="sofas">
+          <div class="cat-circle"><img src="images/sofas.png" alt="Sofas"></div>
+          <span>Sofas</span>
+        </button>
+        <button class="cat-btn" data-category="chairs">
+          <div class="cat-circle"><img src="images/chairs.png" alt="Chairs"></div>
+          <span>Chairs</span>
+        </button>
+        <button class="cat-btn" data-category="tables">
+          <div class="cat-circle"><img src="images/tables.png" alt="Tables"></div>
+          <span>Tables</span>
+        </button>
+      </div>
+
+      <!-- Row 2: 2 items centered -->
+      <div class="categories-row-2">
+        <button class="cat-btn" data-category="beds">
+          <div class="cat-circle"><img src="images/beds.png" alt="Beds"></div>
+          <span>Beds</span>
+        </button>
+        <button class="cat-btn" data-category="storage">
+          <div class="cat-circle"><img src="images/storage.png" alt="Storage"></div>
+          <span>Storage</span>
+        </button>
+      </div>
+
+    </div>
+
+  <div class="divider"></div>
+  <!-- All Products -->
+  <div class="all-products" id="products">
+    <h2>All Products</h2>
+    <p id="active-label">Showing: All</p>
+
+    <div class="all-products-grid" id="products-grid">
+
+      <!-- Sofas (4 items) -->
+      <div class="card product-item" data-category="sofas">
+        <img src="images/green-sofa.png" alt="Green Sofa">
+        <h3>Green Sofa</h3>
+        <p>$350</p>
+      </div>
+      <div class="card product-item" data-category="sofas">
+        <img src="images/pink-sofa.png" alt="Pink Sofa">
+        <h3>Pink Sofa</h3>
+        <p>$420</p>
+      </div>
+      <div class="card product-item" data-category="sofas">
+        <img src="images/beige-sofa.png" alt="Cream Sofa">
+        <h3>Cream Sofa</h3>
+        <p>$590</p>
+      </div>
+      <div class="card product-item" data-category="sofas">
+        <img src="images/yellow-sofa.png" alt="Yellow Sofa">
+        <h3>Yellow Sofa</h3>
+        <p>$380</p>
+      </div>
+
+      <!-- Chairs (4 items) -->
+      <div class="card product-item" data-category="chairs">
+        <img src="images/yellowww.png" alt="Yellow Armchair">
+        <h3>Yellow Armchair</h3>
+        <p>$120</p>
+      </div>
+      <div class="card product-item" data-category="chairs">
+        <img src="images/pink-armchair.png" alt="Pink Armchair">
+        <h3>Pink Armchair</h3>
+        <p>$140</p>
+      </div>
+      <div class="card product-item" data-category="chairs">
+        <img src="images/green-armchair.png" alt="Green Armchair">
+        <h3>Green Armchair</h3>
+        <p>$195</p>
+      </div>
+      <div class="card product-item" data-category="chairs">
+        <img src="images/bluesky-armchair.png" alt="Bluesky Armchair">
+        <h3>Bluesky Armchair</h3>
+        <p>$89</p>
+      </div>
+
+      <!-- Tables (4 items) -->
+      <div class="card product-item" data-category="tables">
+        <img src="images/table.png" alt="Wooden Table">
+        <h3>Wooden Table</h3>
+        <p>$200</p>
+      </div>
+      <div class="card product-item" data-category="tables">
+        <img src="images/virelli.png" alt="Virelli Sculpt Table">
+        <h3>Virelli Sculpt Table</h3>
+        <p>$175</p>
+      </div>
+      <div class="card product-item" data-category="tables">
+        <img src="images/aurelian.png" alt="Aurelian Curve Table">
+        <h3>Aurelian Curve Table</h3>
+        <p>$95</p>
+      </div>
+      <div class="card product-item" data-category="tables">
+        <img src="images/obsidian.png" alt="Obsidian Flow Table">
+        <h3>Obsidian Flow Table</h3>
+        <p>$340</p>
+      </div>
+
+      <!-- Beds (4 items) -->
+      <div class="card product-item" data-category="beds">
+        <img src="images/banana.png" alt="Banana Bed">
+        <h3>Banana Bed</h3>
+        <p>$680</p>
+      </div>
+      <div class="card product-item" data-category="beds">
+        <img src="images/cream-bed.png" alt="Beige Bed">
+        <h3>Beige Bed</h3>
+        <p>$520</p>
+      </div>
+      <div class="card product-item" data-category="beds">
+        <img src="images/aurora.png" alt="Aurora Bloom Bed">
+        <h3>Aurora Bloom Bed</h3>
+        <p>$450</p>
+      </div>
+      <div class="card product-item" data-category="beds">
+        <img src="images/green-bed.png" alt="Green Bed">
+        <h3>Green Bed</h3>
+        <p>$390</p>
+      </div>
+
+      <!-- Storage (4 items) -->
+      <div class="card product-item" data-category="storage">
+        <img src="images/nightstand-grey.png" alt="Grey Nightstand">
+        <h3>Grey Nightstand</h3>
+        <p>$150</p>
+      </div>
+      <div class="card product-item" data-category="storage">
+        <img src="images/bookshelf.png" alt="Bookshelf">
+        <h3>Bookshelf</h3>
+        <p>$210</p>
+      </div>
+      <div class="card product-item" data-category="storage">
+        <img src="images/wardrobe.jpg" alt="Wardrobe">
+        <h3>Wardrobe</h3>
+        <p>$480</p>
+      </div>
+      <div class="card product-item" data-category="storage">
+        <img src="images/dresser.png" alt="Dresser">
+        <h3>Dresser</h3>
+        <p>$265</p>
+      </div>
+
+    </div>
+  </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://www.tiktok.com/@sweet.corineisan?_r=1&_t=ZS-95hrFQTZhNU">
+        <img src="images/tiktok.png" alt="TikTok">
+      </a>
+      <a href="https://www.instagram.com/corina__654?igsh=MTZzbm1tYWtoM2xhbA%3D%3D&utm_source=qr">
+        <img src="images/instagram.png" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/share/1TyGj3JLKG/?mibextid=wwXIfr">
+        <img src="images/facebook.png" alt="Facebook">
+      </a>
+    </div>
+    <div class="footer-logo">
+      <a href="index.html">
+         <img src="images/logo alb.png" alt="Velouré Logo">
+      </a>
+    </div>
+    <div class="footer-contact">
+      <h3>Contacts</h3>
+      <p>Online manager</p>
+      <button><p><b>+37367932601</b></p></button>
+      <p>Customer support</p>
+      <button><p><b>+37369448120</b></p></button>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const catBtns = document.querySelectorAll(".cat-btn");
+    const activeLabel = document.getElementById("active-label");
+
+    catBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        catBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const cat = btn.dataset.category;
+        const label = btn.querySelector("span").textContent;
+        activeLabel.textContent = `Showing: ${label}`;
+
+        document.querySelectorAll(".product-item").forEach(item => {
+          const match = item.dataset.category === cat;
+          item.style.transition = "opacity .35s, transform .35s";
+          if (match) {
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+            item.style.display = "";
+          } else {
+            item.style.opacity = "0";
+            item.style.transform = "translateY(16px)";
+            setTimeout(() => { item.style.display = "none"; }, 340);
+          }
+        });
+      });
+    });
+
+    // Trigger Sofas by default
+    document.querySelector('.cat-btn[data-category="sofas"]').click();
+  </script>
+  <script>
+    const categories = document.querySelectorAll(".category-btn");
+
+  categories.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+      // SCROLL
+      const section = document.getElementById("products");
+      console.log(section); // NU trebuie să fie null
+
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    });
+  });
+  </script>
+
+</body>
+</html>

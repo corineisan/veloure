@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velouré — About Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --cream: #f3ece1; --beige: #ece4d4; --tan: #d4bfaa;
+      --gold: #b8895a;  --brown: #412819; --dark: #2b2520;
+      --pink: #c98aa3;  --muted: #7a6a5a; --warm: #805c36;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Montserrat", sans-serif; background: var(--pink); padding: 28px; color: var(--dark); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAVBAR ── */
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 36px; background:var(--cream); border-radius:16px 16px 0 0; border-bottom:1.5px solid var(--tan); box-shadow:0 2px 12px rgba(65,40,25,.07); position:relative; z-index:100; }
+    .logo { font-family:"Playfair Display",serif; font-size:30px; font-weight:600; letter-spacing:1.5px; color:var(--dark); }
+    .nav-links { display:flex; align-items:center; gap:32px; margin-left:auto; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--dark); position:relative; transition:color .25s; }
+    .nav-links a::after { content:""; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--gold); transition:width .3s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-links a.active { color:var(--gold); }
+    .nav-links img { width:28px; height:28px; object-fit:contain; cursor:pointer; transition:transform .25s; }
+    .nav-links img:hover { transform:scale(1.12); }
+
+    /* ── HERO ── */
+    .about-hero { background:var(--cream); display:flex; align-items:stretch; min-height:500px; overflow:hidden; }
+    .hero-left { flex:1; background:var(--beige); padding:80px 60px; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+    .hero-left::after { content:""; position:absolute; right:-48px; top:0; bottom:0; width:96px; background:var(--beige); clip-path:polygon(0 0,0% 100%,100% 100%); z-index:1; }
+
+    .hero-eyebrow { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; display:flex; align-items:center; gap:12px; }
+    .hero-eyebrow::before { content:""; display:block; width:32px; height:1px; background:var(--gold); }
+
+    .hero-left h1 { font-family:"Playfair Display",serif; font-size:clamp(32px,4vw,58px); font-weight:500; line-height:1.15; color:var(--dark); margin-bottom:20px; }
+    .hero-left h1 em { font-style:italic; color:var(--warm); }
+    .hero-left p { font-size:14px; line-height:1.8; color:var(--muted); max-width:420px; margin-bottom:32px; }
+
+    .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--brown); color:var(--cream); padding:12px 28px; border-radius:30px; font-size:13px; font-weight:600; letter-spacing:.4px; transition:background .25s, transform .2s; width:fit-content; }
+    .hero-cta:hover { background:#6b4226; transform:translateY(-2px); }
+
+    .hero-right { width:44%; position:relative; overflow:hidden; }
+    .hero-right img { width:100%; height:100%; object-fit:cover; filter:brightness(.88) saturate(1.1); }
+    .hero-right::before { content:""; position:absolute; left:0; top:15%; bottom:15%; width:4px; background:var(--gold); z-index:3; }
+
+    .hero-stat-card { position:absolute; bottom:36px; left:-26px; background:var(--brown); color:var(--cream); border-radius:14px; padding:20px 24px; z-index:4; box-shadow:0 16px 48px rgba(43,37,32,.3); animation:floatIn .8s .3s ease both; }
+    @keyframes floatIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .hero-stat-card .hsc-num { font-family:"Playfair Display",serif; font-size:34px; font-weight:600; line-height:1; margin-bottom:3px; }
+    .hero-stat-card .hsc-lbl { font-size:11px; opacity:.65; letter-spacing:.8px; }
+
+    /* ── MARQUEE ── */
+    .marquee-strip { background:var(--tan); padding:16px 0; overflow:hidden; white-space:nowrap; }
+    .marquee-track { display:inline-flex; animation:marquee 28s linear infinite; }
+    .marquee-item { display:inline-flex; align-items:center; gap:16px; padding:0 36px; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1.4px; color:var(--brown); }
+    .marquee-dot { width:5px; height:5px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── STORY ── */
+    .story-section { background:var(--cream); padding:90px 60px; }
+    .story-inner { display:grid; grid-template-columns:1fr 1fr; gap:72px; max-width:1140px; margin:0 auto; align-items:center; }
+
+    .story-images { position:relative; height:500px; }
+    .story-img-main { position:absolute; top:0; left:0; width:78%; height:80%; border-radius:20px; overflow:hidden; box-shadow:0 20px 56px rgba(43,37,32,.14); }
+    .story-img-main img { width:100%; height:100%; object-fit:cover; }
+    .story-img-accent { position:absolute; bottom:0; right:0; width:54%; height:50%; border-radius:20px; overflow:hidden; border:6px solid var(--cream); box-shadow:0 14px 40px rgba(43,37,32,.16); }
+    .story-img-accent img { width:100%; height:100%; object-fit:cover; }
+    .year-badge { position:absolute; top:48%; left:62%; background:var(--gold); color:var(--cream); border-radius:50%; width:76px; height:76px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; z-index:5; box-shadow:0 8px 24px rgba(184,137,90,.4); }
+    .year-badge span { font-size:20px; font-weight:700; line-height:1; }
+
+    .section-eyebrow { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+    .section-eyebrow::before { content:""; display:block; width:32px; height:1px; background:var(--gold); }
+
+    .story-text h2 { font-family:"Playfair Display",serif; font-size:clamp(26px,3vw,40px); font-weight:500; line-height:1.2; color:var(--dark); margin-bottom:18px; }
+    .story-text h2 em { font-style:italic; color:var(--warm); }
+    .story-text p { font-size:14px; line-height:1.85; color:var(--muted); margin-bottom:16px; }
+
+    .story-values { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:28px; }
+    .sv-item { background:var(--beige); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; transition:transform .25s, box-shadow .25s; }
+    .sv-item:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(43,37,32,.09); }
+    .sv-icon { width:34px; height:34px; flex-shrink:0; background:var(--gold); border-radius:9px; display:flex; align-items:center; justify-content:center; color:var(--cream); font-size:13px; }
+    .sv-info h4 { font-size:12px; font-weight:700; color:var(--dark); margin-bottom:2px; }
+    .sv-info p { font-size:11px; color:var(--muted); line-height:1.5; }
+
+    /* ── STATS ── */
+    .stats-band { background:var(--dark); padding:64px 60px; }
+    .stats-inner { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); }
+    .stat-block { text-align:center; padding:16px 10px; position:relative; }
+    .stat-block:not(:last-child)::after { content:""; position:absolute; right:0; top:20%; bottom:20%; width:1px; background:rgba(246,241,234,.1); }
+    .stat-block .sb-num { font-family:"Playfair Display",serif; font-size:clamp(34px,3.5vw,50px); font-weight:600; color:var(--gold); line-height:1; margin-bottom:8px; }
+    .stat-block .sb-lbl { font-size:11px; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:rgba(246,241,234,.45); }
+
+    /* ── PROCESS ── */
+    .process-section { background:var(--cream); padding:90px 60px; }
+    .section-header { text-align:center; margin-bottom:56px; }
+    .section-header .eyebrow { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .section-header h2 { font-family:"Playfair Display",serif; font-size:clamp(24px,3vw,38px); font-weight:500; color:var(--dark); }
+    .section-header h2 em { font-style:italic; color:var(--warm); }
+
+    .process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:1140px; margin:0 auto; position:relative; }
+    .process-grid::before { content:""; position:absolute; top:43px; left:calc(12.5% + 10px); right:calc(12.5% + 10px); height:1px; background:linear-gradient(to right,var(--tan),var(--gold),var(--tan)); z-index:0; }
+
+    .process-step { text-align:center; position:relative; z-index:1; opacity:0; transform:translateY(18px); transition:opacity .5s ease,transform .5s ease; }
+    .process-step.show { opacity:1; transform:translateY(0); }
+    .ps-num { width:86px; height:86px; border-radius:50%; background:var(--beige); border:2px solid var(--tan); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-family:"Playfair Display",serif; font-size:26px; font-weight:600; color:var(--brown); transition:background .3s,border-color .3s,transform .3s; }
+    .process-step:hover .ps-num { background:var(--gold); border-color:var(--gold); color:var(--cream); transform:scale(1.07); }
+    .ps-title { font-size:13px; font-weight:700; color:var(--dark); margin-bottom:8px; }
+    .ps-desc { font-size:12px; color:var(--muted); line-height:1.7; }
+
+    /* ── TEAM ── */
+    .team-section { background:var(--beige); padding:90px 60px; }
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:48px auto 0; }
+
+    .team-card { background:var(--cream); border-radius:20px; overflow:hidden; opacity:0; transform:translateY(22px); transition:opacity .5s ease,transform .5s ease,box-shadow .3s; }
+    .team-card.show { opacity:1; transform:translateY(0); }
+    .team-card:hover { transform:translateY(-5px); box-shadow:0 18px 48px rgba(43,37,32,.13); }
+
+    .tc-avatar { width:100%; aspect-ratio:1; background:linear-gradient(135deg,var(--tan) 0%,var(--beige) 100%); display:flex; align-items:center; justify-content:center; font-family:"Playfair Display",serif; font-size:52px; color:var(--brown); font-weight:500; }
+    .tc-body { padding:20px 20px 22px; }
+    .tc-role { font-size:10px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+    .tc-name { font-family:"Playfair Display",serif; font-size:19px; font-weight:500; color:var(--dark); margin-bottom:8px; }
+    .tc-bio { font-size:12px; color:var(--muted); line-height:1.65; }
+
+    /* ── MATERIALS ── */
+    .materials-section { background:var(--cream); padding:90px 60px; }
+    .materials-inner { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .mat-text h2 { font-family:"Playfair Display",serif; font-size:clamp(24px,3vw,38px); font-weight:500; color:var(--dark); margin-bottom:16px; line-height:1.2; }
+    .mat-text h2 em { font-style:italic; color:var(--warm); }
+    .mat-text p { font-size:14px; line-height:1.85; color:var(--muted); margin-bottom:24px; }
+    .mat-list { list-style:none; }
+    .mat-list li { display:flex; align-items:center; gap:14px; padding:11px 0; border-bottom:1px solid var(--tan); font-size:13px; color:var(--dark); font-weight:500; }
+    .mat-list li:last-child { border:none; }
+    .mat-list li i { color:var(--gold); font-size:14px; width:18px; flex-shrink:0; }
+
+    .mat-visual { position:relative; height:480px; }
+    .mat-img-a { position:absolute; top:0; right:0; width:80%; height:70%; border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(43,37,32,.13); }
+    .mat-img-a img { width:100%; height:100%; object-fit:cover; }
+    .mat-img-b { position:absolute; bottom:0; left:0; width:56%; height:46%; border-radius:20px; overflow:hidden; border:5px solid var(--cream); box-shadow:0 14px 38px rgba(43,37,32,.15); }
+    .mat-img-b img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── FOOTER ── */
+    .footer { background:var(--dark); color:var(--cream); padding:40px 36px 36px; display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; gap:30px; border-top:1px solid rgba(246,241,234,.08); border-radius:0 0 16px 16px; }
+    .footer-social { display:flex; gap:14px; }
+    .footer-social a { width:32px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(246,241,234,.08); transition:background .25s,transform .25s; }
+    .footer-social a:hover { background:rgba(246,241,234,.18); transform:translateY(-2px); }
+    .footer-social img { width:24px; height:26px; object-fit:contain; }
+    .footer-logo { display:flex; justify-content:center; }
+    .footer-logo img { width:150px; height:150px; object-fit:contain; }
+    .footer-contact { text-align:right; padding:0 15px; }
+    .footer-contact h3 { font-size:12px; font-weight:600; margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase; color:#d4a857; }
+    .footer-contact p { font-size:12px; color:#c8bfb2; margin-bottom:3px; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+    .reveal.show { opacity:1; transform:translateY(0); }
+
+    /* ── NAV AUTH ── */
+    .btn-sign { background:var(--brown); color:var(--cream); padding:7px 18px; border-radius:20px; font-size:12px; font-weight:600; font-family:"Montserrat",sans-serif; border:none; cursor:pointer; transition:background .25s; }
+    .btn-sign:hover { background:#6b4226; }
+    .user-pill { display:flex; align-items:center; gap:7px; background:var(--beige); border-radius:20px; padding:6px 14px 6px 10px; font-size:12px; font-weight:600; color:var(--brown); cursor:pointer; border:1px solid var(--tan); }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; background:none; border:none; cursor:pointer; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:transform .3s,opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:1024px) {
+      .story-inner, .materials-inner { grid-template-columns:1fr; gap:44px; }
+      .story-images, .mat-visual { height:360px; }
+      .process-grid { grid-template-columns:repeat(2,1fr); }
+      .process-grid::before { display:none; }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .team-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:720px) {
+      body { padding:10px; }
+      .about-hero { flex-direction:column; min-height:auto; }
+      .hero-left { padding:44px 24px; }
+      .hero-left::after { display:none; }
+      .hero-right { width:100%; height:260px; }
+      .hero-stat-card { left:16px; bottom:16px; }
+      .story-section, .process-section, .team-section, .materials-section { padding:60px 24px; }
+      .stats-band { padding:48px 24px; }
+      .story-values { grid-template-columns:1fr; }
+      .team-grid { grid-template-columns:1fr; max-width:340px; }
+      .footer { grid-template-columns:1fr; text-align:center; }
+      .footer-social, .footer-logo { justify-content:center; }
+      .footer-contact { text-align:center; }
+      .hamburger { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:absolute; top:70px; right:20px; background:var(--cream); border-radius:12px; padding:18px 26px; gap:16px; z-index:99; box-shadow:0 8px 30px rgba(0,0,0,.12); }
+      .nav-links.mobile-open { display:flex; }
+    }
+    @media (max-width:480px) {
+      .stats-inner { grid-template-columns:1fr 1fr; }
+      .stat-block:not(:last-child)::after { display:none; }
+      .process-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">Velouré</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="products.html">Products</a>
+      <div id="nav-auth"></div>
+      <div style="position:relative;display:inline-flex;">
+        <img src="images/cart.png" alt="Cart" onclick="window.location.href='cart.html'">
+        <span id="cart-badge" style="position:absolute;top:-6px;right:-6px;background:#b8895a;color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;display:none;align-items:center;justify-content:center;font-weight:600;"></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Our Story</div>
+      <h1>Furniture crafted<br>with <em>soul & purpose</em></h1>
+      <p>Since 2012, Velouré has been turning living spaces into sanctuaries. Every piece is a marriage of timeless design and honest craftsmanship — built to last, designed to inspire.</p>
+      <a href="products.html" class="hero-cta">
+        <i class="fa-solid fa-arrow-right"></i> Explore the Collection
+      </a>
+    </div>
+    <div class="hero-right">
+      <img src="images/image 41.png" alt="Velouré Interior" onerror="this.parentElement.style.background='#d4bfaa'">
+      <div class="hero-stat-card">
+        <div class="hsc-num">12+</div>
+        <div class="hsc-lbl">Years of Craft</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>Handcrafted Quality</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Premium Materials</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Eco-Friendly</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Timeless Design</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Made with Soul</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>1500+ Homes</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Handcrafted Quality</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Premium Materials</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Eco-Friendly</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Timeless Design</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Made with Soul</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>1500+ Homes</span>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div class="story-images reveal">
+        <div class="story-img-main">
+          <img src="images/image 41.png" alt="Workshop" onerror="this.parentElement.style.background='#ece4d4'">
+        </div>
+        <div class="story-img-accent">
+          <img src="images/image-40.png" alt="Detail" onerror="this.parentElement.style.background='#d4bfaa'">
+        </div>
+        <div class="year-badge"><span>2012</span>Founded</div>
+      </div>
+
+      <div class="story-text reveal">
+        <div class="section-eyebrow">Who We Are</div>
+        <h2>Born from a <em>passion</em> for beautiful living</h2>
+        <p>Velouré was founded in 2012 by artisans who believed furniture should tell a story. We chose hand selection over automation, natural materials over synthetics, and longevity over trends.</p>
+        <p>Every piece leaves our workshop carrying the care of the people who made it — crafted with sustainably sourced woods, natural fabrics, and non-toxic finishes.</p>
+
+        <div class="story-values">
+          <div class="sv-item">
+            <div class="sv-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="sv-info"><h4>Handmade Always</h4><p>Every joint, every stitch, every finish — done by hand.</p></div>
+          </div>
+          <div class="sv-item">
+            <div class="sv-icon"><i class="fa-solid fa-leaf"></i></div>
+            <div class="sv-info"><h4>Sustainably Sourced</h4><p>Materials chosen with respect for the environment.</p></div>
+          </div>
+          <div class="sv-item">
+            <div class="sv-icon"><i class="fa-solid fa-gem"></i></div>
+            <div class="sv-info"><h4>Premium Quality</h4><p>Built to outlast trends, built to last generations.</p></div>
+          </div>
+          <div class="sv-item">
+            <div class="sv-icon"><i class="fa-solid fa-people-group"></i></div>
+            <div class="sv-info"><h4>Local Artisans</h4><p>Supporting craftspeople in our community.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-band">
+    <div class="stats-inner">
+      <div class="stat-block">
+        <div class="sb-num" data-target="12" data-suffix="+">0</div>
+        <div class="sb-lbl">Years of Experience</div>
+      </div>
+      <div class="stat-block">
+        <div class="sb-num" data-target="1500" data-suffix="+">0</div>
+        <div class="sb-lbl">Homes Furnished</div>
+      </div>
+      <div class="stat-block">
+        <div class="sb-num" data-target="4.9" data-decimal="1">0</div>
+        <div class="sb-lbl">Average Rating</div>
+      </div>
+      <div class="stat-block">
+        <div class="sb-num" data-target="200" data-suffix="+">0</div>
+        <div class="sb-lbl">Unique Pieces</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="section-header reveal">
+      <div class="eyebrow">How We Work</div>
+      <h2>Our <em>craft process</em>, step by step</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="ps-num">01</div>
+        <div class="ps-title">Design & Concept</div>
+        <div class="ps-desc">Every piece begins as a sketch — inspired by nature, architecture, and the needs of real homes.</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">02</div>
+        <div class="ps-title">Material Selection</div>
+        <div class="ps-desc">We hand-pick every plank and fabric. Only materials meeting our sustainability standards make it through.</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">03</div>
+        <div class="ps-title">Handcraft & Build</div>
+        <div class="ps-desc">Skilled artisans shape, join, upholster, and finish each piece by hand. No shortcuts, ever.</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">04</div>
+        <div class="ps-title">Quality Check</div>
+        <div class="ps-desc">Every piece passes a rigorous inspection before leaving — structure, finish, and alignment verified.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="section-header reveal">
+      <div class="eyebrow">Meet the Team</div>
+      <h2>The <em>people</em> behind Velouré</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="tc-avatar">E</div>
+        <div class="tc-body">
+          <div class="tc-role">Founder & Creative Director</div>
+          <div class="tc-name">Elena Velouré</div>
+          <div class="tc-bio">With a background in architecture and a love of textiles, Elena founded Velouré to make extraordinary furniture accessible without compromising on soul.</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="tc-avatar">M</div>
+        <div class="tc-body">
+          <div class="tc-role">Head of Craftsmanship</div>
+          <div class="tc-name">Mihai Dorescu</div>
+          <div class="tc-bio">A third-generation woodworker, Mihai oversees every piece that leaves the workshop. His insistence on quality is the reason Velouré furniture lasts a lifetime.</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="tc-avatar">S</div>
+        <div class="tc-body">
+          <div class="tc-role">Head of Sustainability</div>
+          <div class="tc-name">Sofia Luca</div>
+          <div class="tc-bio">Sofia ensures every material meets our environmental standards and manages the supplier relationships that keep us honest.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section class="materials-section">
+    <div class="materials-inner">
+      <div class="mat-text reveal">
+        <div class="section-eyebrow">Our Materials</div>
+        <h2>Only the <em>finest</em> materials touch our hands</h2>
+        <p>We travel, test, and build long-term supplier relationships to ensure every material is beautiful, durable, and environmentally responsible.</p>
+        <ul class="mat-list">
+          <li><i class="fa-solid fa-tree"></i> FSC-certified solid oak, walnut & ash</li>
+          <li><i class="fa-solid fa-seedling"></i> Natural linen, wool & organic cotton upholstery</li>
+          <li><i class="fa-solid fa-droplet-slash"></i> Water-based, non-toxic finishes</li>
+          <li><i class="fa-solid fa-recycle"></i> Recycled metal hardware & sustainable packaging</li>
+          <li><i class="fa-solid fa-certificate"></i> Certified by European eco-design standards</li>
+        </ul>
+      </div>
+      <div class="mat-visual reveal">
+        <div class="mat-img-a">
+          <img src="images/image-40.png" alt="Materials" onerror="this.parentElement.style.background='#ece4d4'">
+        </div>
+        <div class="mat-img-b">
+          <img src="images/image 41.png" alt="Fabric" onerror="this.parentElement.style.background='#d4bfaa'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://www.tiktok.com/@sweet.corineisan?_r=1&_t=ZS-95hrFQTZhNU"><img src="images/tiktok.png" alt="TikTok"></a>
+      <a href="https://www.instagram.com/corina__654?igsh=MTZzbm1tYWtoM2xhbA%3D%3D&utm_source=qr"><img src="images/instagram.png" alt="Instagram"></a>
+      <a href="https://www.facebook.com/share/1TyGj3JLKG/?mibextid=wwXIfr"><img src="images/facebook.png" alt="Facebook"></a>
+    </div>
+    <div class="footer-logo"><img src="images/logo alb.png" alt="Velouré logo"></div>
+    <div class="footer-contact">
+      <h3>Contacts</h3>
+      <p>Online manager</p><p><b>+37367932601</b></p>
+      <p>Customer support</p><p><b>+37369448120</b></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    /* Nav auth */
+    function renderAuth() {
+      const w = document.getElementById("nav-auth"); if (!w) return;
+      try {
+        const u = JSON.parse(localStorage.getItem("velour_user"));
+        w.innerHTML = u
+          ? `<div class="user-pill"><i class="fa-regular fa-circle-user"></i>${u.name.split(" ")[0]}</div>`
+          : `<button class="btn-sign" onclick="window.location.href='cart.html'">Sign In</button>`;
+      } catch { w.innerHTML = `<button class="btn-sign" onclick="window.location.href='cart.html'">Sign In</button>`; }
+    }
+
+    /* Cart badge */
+    function syncBadge() {
+      try {
+        const n = (JSON.parse(localStorage.getItem("velour_cart_items") || "[]")).reduce((s,i)=>s+i.qty,0);
+        const b = document.getElementById("cart-badge");
+        if (b) { b.textContent = n; b.style.display = n > 0 ? "flex" : "none"; }
+      } catch {}
+    }
+
+    /* Scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("show"); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal, .process-step, .team-card").forEach(el => obs.observe(el));
+
+    /* Stagger delays */
+    document.querySelectorAll(".process-step").forEach((el, i) => el.style.transitionDelay = `${i * 110}ms`);
+    document.querySelectorAll(".team-card").forEach((el, i) => el.style.transitionDelay = `${i * 90}ms`);
+
+    /* Counter animation */
+    const cObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        cObs.unobserve(e.target);
+        const el = e.target;
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || "";
+        const isDecimal = !!el.dataset.decimal;
+        let start = 0;
+        const inc = target / (1500 / 16);
+        const timer = setInterval(() => {
+          start = Math.min(start + inc, target);
+          el.textContent = (isDecimal ? start.toFixed(1) : Math.round(start).toLocaleString()) + suffix;
+          if (start >= target) clearInterval(timer);
+        }, 16);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll(".sb-num[data-target]").forEach(el => cObs.observe(el));
+
+    /* Mobile nav */
+    (function() {
+      const nb = document.querySelector(".navbar");
+      if (!nb || nb.querySelector(".hamburger")) return;
+      const h = document.createElement("button");
+      h.className = "hamburger"; h.setAttribute("aria-label", "Toggle menu");
+      h.innerHTML = "<span></span><span></span><span></span>";
+      nb.appendChild(h);
+      const nav = document.querySelector(".nav-links");
+      h.addEventListener("click", () => { h.classList.toggle("open"); nav.classList.toggle("mobile-open"); });
+    })();
+
+    renderAuth();
+    syncBadge();
+  </script>
+</body>
+</html>

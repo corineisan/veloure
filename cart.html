@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velouré — Your Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --cream: #f3ece1; --beige: #ece4d4; --tan: #d4bfaa;
+      --gold: #b8895a;  --brown: #412819;  --dark: #2b2520;
+      --pink: #c98aa3;  --muted: #7a6a5a;
+    }
+    *, *::before, *::after { 
+        box-sizing: border-box; 
+        margin: 0; 
+        padding: 0; 
+    }
+    body {
+        font-family: "Montserrat", system-ui, sans-serif;
+        color: #2b2520;
+        background: #c98aa3;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        padding: 28px;
+    }
+
+    /* navbar */
+    .navbar { 
+        display:flex; 
+        align-items:center; 
+        justify-content:space-between; 
+        padding:18px 36px; 
+        background:#f3ece1; 
+        border-radius:16px 16px 0 0; 
+        border-bottom:1.5px solid #d4bfaa; 
+        box-shadow:0 2px 12px #41281912; 
+        position:relative; 
+        z-index:100; 
+    }
+    .logo {
+        font-size: 32px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        color: #2b2520;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        margin-left: auto;
+    }
+    .nav-links a {
+        font-size: 18px;
+        font-weight: 500;
+        color: #2b2520;
+        position: relative;
+         transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -4px;
+        width: 0; height: 1px;
+        background: #b8895a;
+        transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: #b8895a; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links img {
+        width: 32px; height: 32px;
+        object-fit: contain;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+    }
+    .nav-links img:hover { transform: scale(1.12); }
+
+
+    /* cart shell */
+    .cart-shell { background:var(--cream); min-height:80vh; padding-bottom:80px; }
+
+    /* back */
+    .back-bar { padding:28px 52px 0; }
+    .back-btn { display:flex; align-items:center; gap:8px; background:none; border:none; cursor:pointer; font-family:"Montserrat",sans-serif; font-size:13px; font-weight:600; color:var(--muted); transition:color .2s, transform .2s; letter-spacing:.4px; }
+    .back-btn:hover { color:var(--brown); transform:translateX(-3px); }
+
+    /* title */
+    .cart-title-row { text-align:center; padding:12px 52px 40px; }
+    .cart-title-row h1 { font-family:"Playfair Display",serif; font-size:clamp(28px,4vw,50px); font-weight:500; color:var(--dark); margin-bottom:5px; }
+    .cart-title-row p { font-size:13px; color:var(--muted); }
+
+    /* split */
+    .cart-split { display:grid; grid-template-columns:1fr 420px; gap:0; max-width:1200px; margin:0 auto; padding:0 52px; align-items:start; }
+
+    /* left */
+    .cart-left { padding-right:52px; border-right:1.5px solid var(--tan); }
+    .cart-left-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:22px; }
+    .cart-left-header h2 { font-family:"Playfair Display",serif; font-size:20px; font-weight:500; }
+    .clear-btn { font-size:11px; font-weight:600; color:var(--muted); background:none; border:none; cursor:pointer; letter-spacing:.5px; text-transform:uppercase; transition:color .2s; }
+    .clear-btn:hover { color:#a8412e; }
+
+    .cart-item { display:grid; grid-template-columns:100px 1fr auto; gap:22px; align-items:center; padding:22px 0; border-bottom:1px solid var(--tan); animation:fadeUp .4s ease both; }
+    .cart-item:first-child { border-top:1px solid var(--tan); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+    .item-img { width:100px; height:100px; background:var(--beige); border-radius:14px; overflow:hidden; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .item-img img { width:100%; height:100%; object-fit:contain; padding:10px; }
+
+    .item-info { min-width:0; }
+    .item-cat { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+    .item-name { font-size:16px; font-weight:600; color:var(--dark); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .item-unit { font-size:12px; color:var(--muted); }
+
+    .item-controls { display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+    .item-price { font-size:17px; font-weight:700; color:var(--brown); }
+
+    .stepper { display:flex; align-items:center; background:var(--beige); border-radius:30px; border:1px solid var(--tan); overflow:hidden; }
+    .step-btn { width:32px; height:32px; background:none; border:none; cursor:pointer; font-size:16px; font-weight:700; color:var(--brown); display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    .step-btn:hover { background:var(--tan); }
+    .step-val { width:32px; text-align:center; font-size:13px; font-weight:700; color:var(--dark); user-select:none; }
+
+    .rm-btn { background:none; border:none; cursor:pointer; color:var(--tan); font-size:14px; padding:4px; border-radius:50%; transition:color .2s, background .2s; }
+    .rm-btn:hover { color:#a8412e; background:#fde8e4; }
+
+    /* empty */
+    .empty-state { text-align:center; padding:70px 20px; }
+    .empty-icon { width:72px; height:72px; background:var(--beige); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:28px; color:var(--tan); }
+    .empty-state h3 { font-family:"Playfair Display",serif; font-size:22px; font-weight:500; color:var(--dark); margin-bottom:8px; }
+    .empty-state p { font-size:13px; color:var(--muted); margin-bottom:24px; }
+    .empty-state a { background:var(--brown); color:var(--cream); padding:11px 28px; border-radius:30px; font-size:13px; font-weight:600; text-decoration:none; display:inline-block; transition:background .25s, transform .2s; }
+    .empty-state a:hover { background:#6b4226; transform:translateY(-2px); }
+
+    /* right panel */
+    .cart-right { padding-left:48px; position:sticky; top:24px; }
+    .panel-title { font-family:"Playfair Display",serif; font-size:20px; font-weight:500; color:var(--dark); margin-bottom:24px; }
+
+    /* total pill */
+    .total-pill { background:var(--brown); color:var(--cream); border-radius:16px; padding:20px 24px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; }
+    .tp-left .tp-lbl { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; opacity:.65; margin-bottom:3px; }
+    .tp-left .tp-amt { font-family:"Playfair Display",serif; font-size:30px; font-weight:600; }
+    .tp-right { text-align:right; font-size:11px; opacity:.6; line-height:2; }
+
+    /* summary rows */
+    .s-rows { margin-bottom:20px; }
+    .s-row { display:flex; justify-content:space-between; font-size:13px; color:var(--muted); padding:8px 0; border-bottom:1px dashed var(--tan); }
+    .s-row:last-child { border:none; }
+    .s-row span:last-child { font-weight:600; color:var(--dark); }
+    .s-row.disc span:last-child { color:#5a8a4a; }
+
+    /* promo */
+    .promo-row { display:flex; gap:8px; margin-bottom:20px; }
+    .promo-in { flex:1; padding:10px 14px; background:var(--beige); border:1.5px solid var(--tan); border-radius:10px; font-family:"Montserrat",sans-serif; font-size:12px; color:var(--dark); outline:none; transition:border-color .2s; }
+    .promo-in:focus { border-color:var(--gold); }
+    .promo-in::placeholder { color:var(--tan); }
+    .promo-go { padding:10px 16px; background:var(--beige); border:1.5px solid var(--tan); border-radius:10px; font-family:"Montserrat",sans-serif; font-size:12px; font-weight:600; color:var(--brown); cursor:pointer; transition:background .2s; white-space:nowrap; }
+    .promo-go:hover { background:var(--tan); }
+
+    .divider { height:1px; background:var(--tan); margin:18px 0 22px; }
+
+    /* form */
+    .form-lbl { font-size:10px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+
+    .auth-notice { background:#fff8f0; border:1px solid #f0d8b8; border-radius:10px; padding:12px 14px; font-size:12px; color:var(--brown); margin-bottom:14px; align-items:center; gap:10px; display:none; }
+    .auth-notice.show { display:flex; }
+    .auth-notice i { color:var(--gold); font-size:15px; flex-shrink:0; }
+    .auth-notice b { cursor:pointer; text-decoration:underline; }
+
+    .fg { position:relative; margin-bottom:12px; }
+    .fg i { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--tan); pointer-events:none; transition:color .2s; }
+    .fg input, .fg textarea { width:100%; padding:11px 14px 11px 38px; background:var(--beige); border:1.5px solid transparent; border-radius:10px; font-family:"Montserrat",sans-serif; font-size:13px; color:var(--dark); outline:none; transition:border-color .2s, background .2s; resize:none; }
+    .fg textarea { height:80px; padding-top:12px; line-height:1.5; }
+    .fg input:focus, .fg textarea:focus { border-color:var(--gold); background:var(--cream); }
+    .fg:focus-within i { color:var(--gold); }
+
+    /* CTA */
+    .cta-btn { width:100%; background:var(--gold); color:var(--cream); padding:16px; border-radius:14px; font-size:14px; font-weight:700; font-family:"Montserrat",sans-serif; border:none; cursor:pointer; letter-spacing:.6px; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 6px 24px rgba(184,137,90,.3); transition:background .25s, transform .2s, box-shadow .25s; margin-top:6px; }
+    .cta-btn:hover { background:var(--brown); transform:translateY(-2px); box-shadow:0 12px 36px rgba(65,40,25,.28); }
+    .cta-btn i { font-size:16px; }
+
+    /* modal */
+    .modal-ov { position:fixed; inset:0; background:rgba(43,37,32,.6); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s; }
+    .modal-ov.open { opacity:1; pointer-events:all; }
+    .modal-box { background:var(--cream); border-radius:24px; padding:48px 44px 40px; width:100%; max-width:430px; position:relative; transform:translateY(28px) scale(.96); transition:transform .4s cubic-bezier(.22,1,.36,1); box-shadow:0 40px 100px rgba(43,37,32,.25); }
+    .modal-ov.open .modal-box { transform:translateY(0) scale(1); }
+    .modal-x { position:absolute; top:18px; right:20px; background:var(--beige); border:none; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; color:var(--muted); transition:background .2s, color .2s; }
+    .modal-x:hover { background:var(--tan); color:var(--brown); }
+    .m-tabs { display:flex; background:var(--beige); border-radius:30px; padding:4px; margin-bottom:28px; }
+    .m-tab { flex:1; padding:9px; border:none; background:none; border-radius:26px; font-family:"Montserrat",sans-serif; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; transition:background .25s, color .25s; }
+    .m-tab.active { background:var(--brown); color:var(--cream); }
+    .m-eye { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+    .m-title { font-family:"Playfair Display",serif; font-size:26px; font-weight:500; color:var(--dark); margin-bottom:5px; }
+    .m-sub { font-size:13px; color:var(--muted); margin-bottom:24px; }
+    .mf { margin-bottom:14px; }
+    .mf label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:6px; }
+    .mf input { width:100%; padding:11px 16px; background:var(--beige); border:1.5px solid transparent; border-radius:10px; font-family:"Montserrat",sans-serif; font-size:13px; color:var(--dark); outline:none; transition:border-color .2s, background .2s; }
+    .mf input:focus { border-color:var(--gold); background:var(--cream); }
+    .m-err { font-size:11px; color:#b83222; margin-top:6px; min-height:14px; }
+    .m-forgot { font-size:11px; color:var(--gold); text-align:right; cursor:pointer; margin-top:-8px; margin-bottom:8px; text-decoration:underline; }
+    .m-submit { width:100%; background:var(--brown); color:var(--cream); padding:13px; border-radius:30px; font-size:14px; font-weight:700; font-family:"Montserrat",sans-serif; border:none; cursor:pointer; letter-spacing:.5px; transition:background .25s, transform .2s; margin-top:6px; }
+    .m-submit:hover { background:#6b4226; transform:translateY(-1px); }
+    .m-alt { text-align:center; font-size:12px; color:var(--muted); margin-top:16px; }
+    .m-alt span { color:var(--gold); font-weight:600; cursor:pointer; text-decoration:underline; }
+
+    /* nav auth */
+    .btn-sign { background:var(--brown); color:var(--cream); padding:7px 18px; border-radius:20px; font-size:12px; font-weight:600; font-family:"Montserrat",sans-serif; border:none; cursor:pointer; transition:background .25s, transform .2s; }
+    .btn-sign:hover { background:#6b4226; transform:translateY(-1px); }
+    .user-pill { display:flex; align-items:center; gap:7px; background:var(--beige); border-radius:20px; padding:6px 14px 6px 10px; font-size:12px; font-weight:600; color:var(--brown); cursor:pointer; border:1px solid var(--tan); transition:background .2s; }
+    .user-pill:hover { background:var(--tan); }
+
+    /* toast */
+    .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(90px); background:var(--dark); color:var(--cream); padding:13px 28px; border-radius:30px; font-size:13px; font-weight:600; font-family:"Montserrat",sans-serif; z-index:99999; display:flex; align-items:center; gap:9px; white-space:nowrap; box-shadow:0 8px 32px rgba(43,37,32,.28); transition:transform .4s cubic-bezier(.22,1,.36,1); }
+    .toast.show { transform:translateX(-50%) translateY(0); }
+    .toast i { color:var(--gold); }
+
+    /* footer */
+    .footer { background:var(--dark); color:var(--cream); padding:40px 36px 36px; display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; gap:30px; border-top:1px solid rgba(246,241,234,.08); border-radius:0 0 16px 16px; }
+    .footer-social { display:flex; gap:14px; }
+    .footer-social a { width:32px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(246,241,234,.08); transition:background .25s, transform .25s; }
+    .footer-social a:hover { background:rgba(246,241,234,.18); transform:translateY(-2px); }
+    .footer-social img { width:24px; height:26px; object-fit:contain; }
+    .footer-logo { display:flex; justify-content:center; }
+    .footer-logo img { width:150px; height:150px; object-fit:contain; }
+    .footer-contact { text-align:right; padding:0 15px; }
+    .footer-contact h3 { font-size:12px; font-weight:600; margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase; color:#d4a857; }
+    .footer-contact p { font-size:12px; color:#c8bfb2; margin-bottom:3px; }
+
+    /* hamburgher */
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; background:none; border:none; cursor:pointer; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    @media (max-width:980px) {
+      .cart-split { grid-template-columns:1fr; padding:0 28px; }
+      .cart-left { padding-right:0; border-right:none; border-bottom:1.5px solid var(--tan); padding-bottom:40px; margin-bottom:40px; }
+      .cart-right { padding-left:0; position:static; }
+    }
+    @media (max-width:640px) {
+      body { padding:10px; }
+      .back-bar, .cart-title-row { padding-left:20px; padding-right:20px; }
+      .cart-split { padding:0 16px; }
+      .cart-item { grid-template-columns:80px 1fr; gap:14px; }
+      .item-controls { grid-column:1/-1; flex-direction:row; align-items:center; justify-content:space-between; }
+      .modal-box { padding:32px 22px 28px; margin:14px; }
+      .footer { grid-template-columns:1fr; text-align:center; }
+      .footer-social, .footer-logo { justify-content:center; }
+      .footer-contact { text-align:center; }
+      .hamburger { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:absolute; top:70px; right:20px; background:var(--cream); border-radius:12px; padding:18px 26px; gap:16px; z-index:99; box-shadow:0 8px 30px rgba(0,0,0,.12); }
+      .nav-links.mobile-open { display:flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">Velouré</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="products.html">Products</a>
+        <img src="images/cart.png" alt="Cart" onclick="window.location.href='cart.html'">
+    </nav>
+  </header>
+
+  <div class="cart-shell">
+    <div class="back-bar">
+      <button class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>&nbsp; Continue Shopping
+      </button>
+    </div>
+
+    <div class="cart-title-row">
+      <h1>Your Cart</h1>
+      <p id="cart-sub">Loading…</p>
+    </div>
+
+    <div class="cart-split">
+
+      <!-- LEFT -->
+      <div class="cart-left">
+        <div class="cart-left-header">
+          <h2>Items</h2>
+          <button class="clear-btn" onclick="clearCart()">Clear all</button>
+        </div>
+        <div id="items-list"></div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="cart-right">
+        <h2 class="panel-title">Order Summary</h2>
+
+        <div class="total-pill">
+          <div class="tp-left">
+            <div class="tp-lbl">Total to pay</div>
+            <div class="tp-amt" id="pill-total">$0</div>
+          </div>
+          <div class="tp-right" id="pill-info">0 items<br>—</div>
+        </div>
+
+        <div class="s-rows">
+          <div class="s-row"><span>Subtotal</span><span id="s-sub">$0</span></div>
+          <div class="s-row"><span>Shipping</span><span id="s-ship">—</span></div>
+          <div class="s-row disc" id="s-disc-row" style="display:none"><span>Discount</span><span id="s-disc">—</span></div>
+        </div>
+
+        <div class="promo-row">
+          <input class="promo-in" id="promo-in" type="text" placeholder="Promo code (e.g. VELOURE10)">
+          <button class="promo-go" onclick="applyPromo()">Apply</button>
+        </div>
+
+        <div class="divider"></div>
+        <div class="form-lbl">Delivery Details</div>
+
+        <div class="auth-notice" id="auth-notice">
+          <i class="fa-solid fa-lock"></i>
+          <span>Please <b onclick="openModal()">sign in</b> to complete your order.</span>
+        </div>
+
+        <div class="fg"><i class="fa-regular fa-user"></i><input type="text" id="f-name" placeholder="Full name"></div>
+        <div class="fg"><i class="fa-regular fa-envelope"></i><input type="email" id="f-email" placeholder="Email address"></div>
+        <div class="fg"><i class="fa-solid fa-location-dot"></i><input type="text" id="f-addr" placeholder="Delivery address"></div>
+        <div class="fg"><i class="fa-solid fa-phone"></i><input type="tel" id="f-phone" placeholder="Phone number"></div>
+        <div class="fg"><i class="fa-regular fa-comment" style="top:16px;transform:none"></i><textarea id="f-note" placeholder="Order notes (optional)"></textarea></div>
+
+        <button class="cta-btn" onclick="handleCheckout()">
+          <i class="fa-solid fa-bag-shopping"></i> Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+            <div class="footer-social">
+                <a href="https://www.tiktok.com/@sweet.corineisan?_r=1&_t=ZS-95hrFQTZhNU">
+                    <img src="images/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.instagram.com/corina__654?igsh=MTZzbm1tYWtoM2xhbA%3D%3D&utm_source=qr">
+                    <img src="images/instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/share/1TyGj3JLKG/?mibextid=wwXIfr">
+                    <img src="images/facebook.png" alt="Facebook">
+                </a>
+            </div>
+            <div class="footer-logo">
+                <a href="index.html">
+                    <img src="images/logo alb.png" alt="Velouré Logo">
+                </a>
+             </div>
+            <div class="footer-contact">
+                <h3>Contacts</h3>
+                <p>Online manager</p>
+                <button><p><b>+37367932601</b></p></button>
+                <p>Customer support</p>
+                <button><p><b>+37369448120</b></p></button>
+            </div>
+        </footer>
+
+  <!-- MODAL -->
+  <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="m-tabs">
+        <button class="m-tab active" id="tab-in" onclick="switchTab('in')">Sign In</button>
+        <button class="m-tab" id="tab-up" onclick="switchTab('up')">Register</button>
+      </div>
+
+      <div id="form-in">
+        <div class="m-eye">Welcome back</div>
+        <h2 class="m-title">Sign in to Velouré</h2>
+        <p class="m-sub">Access your account to place orders</p>
+        <div class="mf"><label>Email</label><input type="email" id="li-email" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="mf"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••" autocomplete="current-password"></div>
+        <div class="m-forgot" onclick="showToast('📬 Reset link sent!')">Forgot password?</div>
+        <div class="m-err" id="li-err"></div>
+        <button class="m-submit" onclick="doLogin()">Sign In</button>
+        <p class="m-alt">New here? <span onclick="switchTab('up')">Create an account</span></p>
+      </div>
+
+      <div id="form-up" style="display:none">
+        <div class="m-eye">Join Velouré</div>
+        <h2 class="m-title">Create Account</h2>
+        <p class="m-sub">Save your details for faster checkout</p>
+        <div class="mf"><label>Full Name</label><input type="text" id="ru-name" placeholder="Your full name" autocomplete="name"></div>
+        <div class="mf"><label>Email</label><input type="email" id="ru-email" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="mf"><label>Password</label><input type="password" id="ru-pass" placeholder="Min. 6 characters" autocomplete="new-password"></div>
+        <div class="mf"><label>Confirm Password</label><input type="password" id="ru-pass2" placeholder="Repeat password" autocomplete="new-password"></div>
+        <div class="m-err" id="ru-err"></div>
+        <button class="m-submit" onclick="doRegister()">Create Account</button>
+        <p class="m-alt">Already have one? <span onclick="switchTab('in')">Sign In</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toast-msg"></span></div>
+
+  <script src="script.js"></script>
+  <script>
+    const CART_KEY="velour_cart_items", USERS_KEY="velour_users", USER_KEY="velour_user";
+    const PROMOS={VELOURE10:10,WELCOME15:15,SAVE20:20};
+    let discount=0;
+
+    function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY))||[];}catch{return[];}}
+    function saveCart(items){localStorage.setItem(CART_KEY,JSON.stringify(items));localStorage.setItem("velour_cart",items.reduce((s,i)=>s+i.qty,0));syncBadge(items);}
+    function syncBadge(items){const n=(items||getCart()).reduce((s,i)=>s+i.qty,0);const b=document.getElementById("cart-badge");if(b){b.textContent=n;b.style.display=n>0?"flex":"none";}}
+    function getUser(){try{return JSON.parse(localStorage.getItem(USER_KEY));}catch{return null;}}
+    function setUser(u){localStorage.setItem(USER_KEY,JSON.stringify(u));}
+    function clearUser(){localStorage.removeItem(USER_KEY);}
+
+    function render(){
+      const items=getCart();
+      syncBadge(items);
+      const qty=items.reduce((s,i)=>s+i.qty,0);
+      document.getElementById("cart-sub").textContent=qty===0?"Your cart is empty":`${qty} item${qty!==1?"s":""} ready to order`;
+      const list=document.getElementById("items-list");
+      if(!items.length){
+        list.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-couch"></i></div><h3>Nothing here yet</h3><p>Your cart is waiting to be filled with beautiful pieces.</p><a href="products.html">Browse Collection</a></div>`;
+        updateSummary(items); return;
+      }
+      list.innerHTML=items.map((it,i)=>`
+        <div class="cart-item" id="ci-${i}" style="animation-delay:${i*55}ms">
+          <div class="item-img"><img src="${it.img}" alt="${it.name}" onerror="this.src='images/green-sofa.png'"></div>
+          <div class="item-info">
+            <div class="item-cat">${it.category||"Furniture"}</div>
+            <div class="item-name">${it.name}</div>
+            <div class="item-unit">$${it.price.toFixed(2)} each</div>
+          </div>
+          <div class="item-controls">
+            <div class="item-price">$${(it.price*it.qty).toFixed(2)}</div>
+            <div class="stepper">
+              <button class="step-btn" onclick="chQty(${i},-1)">−</button>
+              <span class="step-val">${it.qty}</span>
+              <button class="step-btn" onclick="chQty(${i},1)">+</button>
+            </div>
+            <button class="rm-btn" onclick="rmItem(${i})" title="Remove"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>`).join("");
+      updateSummary(items);
+      prefill();
+    }
+
+    function updateSummary(items){
+      const sub=items.reduce((s,i)=>s+i.price*i.qty,0);
+      const ship=sub===0?0:sub>300?0:25;
+      const disc=Math.round(sub*discount/100);
+      const total=Math.max(0,sub+ship-disc);
+      const qty=items.reduce((s,i)=>s+i.qty,0);
+      document.getElementById("s-sub").textContent=`$${sub.toFixed(2)}`;
+      document.getElementById("s-ship").textContent=ship===0?(sub===0?"—":"Free ✓"):`$${ship}`;
+      document.getElementById("pill-total").textContent=`$${total.toFixed(2)}`;
+      document.getElementById("pill-info").innerHTML=`${qty} item${qty!==1?"s":""}<br>${ship===0&&sub>0?"Free shipping":"$"+ship+" shipping"}`;
+      const dr=document.getElementById("s-disc-row");
+      if(disc>0){dr.style.display="";document.getElementById("s-disc").textContent=`-$${disc}`;}else{dr.style.display="none";}
+    }
+
+    function chQty(i,d){const items=getCart();items[i].qty=Math.max(1,items[i].qty+d);saveCart(items);render();}
+    function rmItem(i){const el=document.getElementById("ci-"+i);if(el){el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateX(24px)";setTimeout(()=>{const items=getCart();items.splice(i,1);saveCart(items);render();},280);}}
+    function clearCart(){saveCart([]);render();showToast("Cart cleared");}
+    function prefill(){const u=getUser();if(!u)return;const n=document.getElementById("f-name"),e=document.getElementById("f-email");if(n&&!n.value)n.value=u.name||"";if(e&&!e.value)e.value=u.email||"";}
+
+    function applyPromo(){const c=document.getElementById("promo-in").value.trim().toUpperCase();if(PROMOS[c]){discount=PROMOS[c];updateSummary(getCart());showToast(`🎉 ${discount}% discount applied!`);}else{showToast("Invalid promo code");}}
+
+    function handleCheckout(){
+      const u=getUser();
+      if(!u){document.getElementById("auth-notice").classList.add("show");openModal();return;}
+      const items=getCart();
+      if(!items.length){showToast("Your cart is empty!");return;}
+      const name=document.getElementById("f-name").value.trim();
+      const addr=document.getElementById("f-addr").value.trim();
+      if(!name||!addr){showToast("Please fill in your name and address");return;}
+      showToast(`🎉 Order placed! Thank you, ${u.name.split(" ")[0]}!`);
+      setTimeout(()=>{saveCart([]);render();},1400);
+    }
+
+    function renderAuth(){
+      const w=document.getElementById("nav-auth");if(!w)return;
+      const u=getUser();
+      if(u){w.innerHTML=`<div class="user-pill" onclick="doLogout()"><i class="fa-regular fa-circle-user"></i>${u.name.split(" ")[0]}<small style="opacity:.5;font-size:10px;font-weight:400">▾</small></div>`;document.getElementById("auth-notice")?.classList.remove("show");prefill();}
+      else{w.innerHTML=`<button class="btn-sign" onclick="openModal()">Sign In</button>`;}
+    }
+    function doLogout(){clearUser();renderAuth();showToast("Signed out. See you soon!");}
+
+    function openModal(){document.getElementById("modal").classList.add("open");document.body.style.overflow="hidden";}
+    function closeModal(){document.getElementById("modal").classList.remove("open");document.body.style.overflow="";}
+    function switchTab(t){
+      document.getElementById("tab-in").classList.toggle("active",t==="in");
+      document.getElementById("tab-up").classList.toggle("active",t==="up");
+      document.getElementById("form-in").style.display=t==="in"?"":"none";
+      document.getElementById("form-up").style.display=t==="up"?"":"none";
+      document.getElementById("li-err").textContent="";
+      document.getElementById("ru-err").textContent="";
+    }
+
+    function doLogin(){
+      const email=document.getElementById("li-email").value.trim();
+      const pass=document.getElementById("li-pass").value;
+      const err=document.getElementById("li-err");
+      if(!email||!pass){err.textContent="Please fill in all fields.";return;}
+      if(!/\S+@\S+\.\S+/.test(email)){err.textContent="Enter a valid email.";return;}
+      const users=JSON.parse(localStorage.getItem(USERS_KEY)||"[]");
+      const m=users.find(u=>u.email===email&&u.password===pass);
+      if(!m){err.textContent="Incorrect email or password.";return;}
+      setUser({name:m.name,email:m.email});closeModal();renderAuth();showToast(`👋 Welcome back, ${m.name.split(" ")[0]}!`);
+    }
+
+    function doRegister(){
+      const name=document.getElementById("ru-name").value.trim();
+      const email=document.getElementById("ru-email").value.trim();
+      const pass=document.getElementById("ru-pass").value;
+      const pass2=document.getElementById("ru-pass2").value;
+      const err=document.getElementById("ru-err");
+      if(!name||!email||!pass||!pass2){err.textContent="Please fill in all fields.";return;}
+      if(!/\S+@\S+\.\S+/.test(email)){err.textContent="Enter a valid email.";return;}
+      if(pass.length<6){err.textContent="Password must be at least 6 characters.";return;}
+      if(pass!==pass2){err.textContent="Passwords do not match.";return;}
+      const users=JSON.parse(localStorage.getItem(USERS_KEY)||"[]");
+      if(users.find(u=>u.email===email)){err.textContent="This email is already registered.";return;}
+      users.push({name,email,password:pass});
+      localStorage.setItem(USERS_KEY,JSON.stringify(users));
+      setUser({name,email});closeModal();renderAuth();showToast(`🎉 Welcome, ${name.split(" ")[0]}!`);
+    }
+
+    function showToast(msg){const t=document.getElementById("toast");document.getElementById("toast-msg").textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3400);}
+
+    window.addToCart=function(name,price,img,category){
+      const items=getCart();
+      const id=(name||"item").toLowerCase().replace(/\s+/g,"-");
+      const ex=items.find(i=>i.id===id);
+      if(ex)ex.qty++;else items.push({id,name,price:parseFloat(price)||0,img:img||"",category:category||"",qty:1});
+      saveCart(items);showToast(`"${name}" added to cart!`);
+    };
+
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+    document.getElementById("li-pass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+    document.getElementById("ru-pass2").addEventListener("keydown",e=>{if(e.key==="Enter")doRegister();});
+
+    (function(){
+      const nb=document.querySelector(".navbar");
+      if(!nb||nb.querySelector(".hamburger"))return;
+      const h=document.createElement("button");h.className="hamburger";h.setAttribute("aria-label","Toggle menu");
+      h.innerHTML="<span></span><span></span><span></span>";nb.appendChild(h);
+      const nav=document.querySelector(".nav-links");
+      h.addEventListener("click",()=>{h.classList.toggle("open");nav.classList.toggle("mobile-open");});
+    })();
+
+    render();
+    renderAuth();
+  </script>
+</body>
+</html>
