@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Velouré — Products</title>
+  <link rel="icon" type="image/png" sizes="36x36" href="images/logo-negru.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
 
-    /* ── Navbar with border + background ── */
+    /* navbar with border + background */
     .navbar {
       background: #f3ece1;
       border-bottom: 1.5px solid #d4bfaa;
@@ -35,7 +36,7 @@
       color: #7a6a5a;
     }
 
-    /* ── Category section: pink edges via padding + inner white/neutral center ── */
+    /* category section: pink edges via padding + inner white/neutral center */
     .categories-section {
       background: linear-gradient(
         to bottom,
@@ -46,7 +47,7 @@
       position: relative;
     } 
 
-    /* Inner container that creates the centered panel effect */
+    /* inner container that creates the centered panel effect */
     .categories-inner {
       max-width: 860px;
       margin: 0 auto;
@@ -54,7 +55,7 @@
       margin-bottom: 40px;
     } 
 
-    /* ── 3 + 2 grid layout ── */
+    /* 3 + 2 grid layout */
     .categories-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -63,7 +64,7 @@
       margin: 0 auto;
     }
 
-    /* Row 2: 2 items centered — use a sub-grid or flex trick */
+    /* randul 2 cu 2 elemente centrate, folosește un sub-grid */
     .categories-row {
       display: flex;
       justify-content: center;
@@ -136,7 +137,7 @@
         rgba(43,37, 32, 0.2),
         transparent);
     }
-    /* ── All Products grid ── */
+    /* all products */
     .all-products {
       background: #f3ece1;
       padding: 60px 36px 80px;
@@ -202,7 +203,7 @@
       min-height: 18px;
     }
 
-    /* Responsive */
+    /* responsive */
     @media (max-width: 1024px) {
       .all-products-grid { grid-template-columns: repeat(3, 1fr); }
     }
@@ -219,7 +220,7 @@
       .cat-btn span { font-size: 12px; }
     }
 
-    /* Hamburger */
+    /* hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -262,17 +263,17 @@
     </nav>
   </header>
 
-  <!-- Page heading -->
+  <!-- page heading -->
   <section class="products-page-hero">
     <h1>Explore Our Collection</h1>
     <p>Handcrafted furniture for every room in your home</p>
   </section>
 
-  <!-- Category circles: 3 on top, 2 below, pink bg as edges -->
+  <!-- category circles: 3 on top, 2 below, pink bg as edges -->
   <section class="categories-section">
     <div class="categories-inner">
 
-      <!-- Row 1: 3 items -->
+      <!-- row 1: 3 items -->
       <div class="categories-row-1">
         <button class="cat-btn active" data-category="sofas">
           <div class="cat-circle"><img src="images/sofas.png" alt="Sofas"></div>
@@ -288,7 +289,7 @@
         </button>
       </div>
 
-      <!-- Row 2: 2 items centered -->
+      <!-- row 2: 2 items centered -->
       <div class="categories-row-2">
         <button class="cat-btn" data-category="beds">
           <div class="cat-circle"><img src="images/beds.png" alt="Beds"></div>
@@ -303,14 +304,14 @@
     </div>
 
   <div class="divider"></div>
-  <!-- All Products -->
+  <!-- all Products -->
   <div class="all-products" id="products">
     <h2>All Products</h2>
     <p id="active-label">Showing: All</p>
 
     <div class="all-products-grid" id="products-grid">
 
-      <!-- Sofas (4 items) -->
+      <!-- sofas (4 items) -->
       <div class="card product-item" data-category="sofas">
         <img src="images/green-sofa.png" alt="Green Sofa">
         <h3>Green Sofa</h3>
@@ -332,7 +333,7 @@
         <p>$380</p>
       </div>
 
-      <!-- Chairs (4 items) -->
+      <!-- chairs (4 items) -->
       <div class="card product-item" data-category="chairs">
         <img src="images/yellowww.png" alt="Yellow Armchair">
         <h3>Yellow Armchair</h3>
@@ -354,7 +355,7 @@
         <p>$89</p>
       </div>
 
-      <!-- Tables (4 items) -->
+      <!-- tables (4 items) -->
       <div class="card product-item" data-category="tables">
         <img src="images/table.png" alt="Wooden Table">
         <h3>Wooden Table</h3>
@@ -376,7 +377,7 @@
         <p>$340</p>
       </div>
 
-      <!-- Beds (4 items) -->
+      <!-- beds (4 items) -->
       <div class="card product-item" data-category="beds">
         <img src="images/banana.png" alt="Banana Bed">
         <h3>Banana Bed</h3>
@@ -398,7 +399,7 @@
         <p>$390</p>
       </div>
 
-      <!-- Storage (4 items) -->
+      <!-- storage (4 items) -->
       <div class="card product-item" data-category="storage">
         <img src="images/nightstand-grey.png" alt="Grey Nightstand">
         <h3>Grey Nightstand</h3>
@@ -423,7 +424,7 @@
     </div>
   </div>
   </section>
-  <!-- Footer -->
+  <!-- footer -->
   <footer class="footer">
     <div class="footer-social">
       <a href="https://www.tiktok.com/@sweet.corineisan?_r=1&_t=ZS-95hrFQTZhNU">
@@ -452,46 +453,79 @@
 
   <script src="script.js"></script>
   <script>
-    const catBtns = document.querySelectorAll(".cat-btn");
-    const activeLabel = document.getElementById("active-label");
+  const catBtns = document.querySelectorAll(".cat-btn"); // butoanele de categorie
+  const activeLabel = document.getElementById("active-label"); // textul care arată categoria activă
+  const section = document.getElementById("products"); // secțiunea cu toate produsele
 
-    catBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        catBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+  function filterCategory(cat, label) {
+    activeLabel.textContent = `Showing: ${label}`;   // actualizează textul categoriei active
 
-        const cat = btn.dataset.category;
-        const label = btn.querySelector("span").textContent;
-        activeLabel.textContent = `Showing: ${label}`;
+    document.querySelectorAll(".product-item").forEach(item => {
+      const match = item.dataset.category === cat;    // verifică dacă produsul aparține categoriei selectate
 
-        document.querySelectorAll(".product-item").forEach(item => {
-          const match = item.dataset.category === cat;
-          item.style.transition = "opacity .35s, transform .35s";
-          if (match) {
-            item.style.opacity = "1";
-            item.style.transform = "translateY(0)";
-            item.style.display = "";
-          } else {
-            item.style.opacity = "0";
-            item.style.transform = "translateY(16px)";
-            setTimeout(() => { item.style.display = "none"; }, 340);
-          }
-        });
+      item.style.transition = "opacity .35s, transform .35s"; // adaugă tranziție pentru un efect de fade + slide
+
+      if (match) {
+        item.style.display = "";
+        setTimeout(() => {
+          item.style.opacity = "1";
+          item.style.transform = "translateY(0)";
+        }, 10);
+      } else {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(16px)";
+        setTimeout(() => { item.style.display = "none"; }, 300);
+      }
+    });
+  }   // adaugă event listener pentru fiecare buton de categorie
+
+  catBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      catBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active"); // setează clasa active pentru butonul selectat
+
+      const cat = btn.dataset.category;
+      const label = btn.querySelector("span").textContent;  // obține textul categoriei pentru afișare
+
+      // salvează categoria
+      localStorage.setItem("selectedCategory", cat);
+
+      filterCategory(cat, label);
+
+      // scroll automat
+      section.scrollIntoView({
+        behavior: "smooth"
       });
     });
+  });
 
-    // Trigger Sofas by default
-    document.querySelector('.cat-btn[data-category="sofas"]').click();
-  </script>
-  <script>
+  // la load pagina, verifică dacă venim de pe home și setează categoria activă corespunzător
+  const params = new URLSearchParams(window.location.search);
+  const fromHome = params.get("from");
+
+  if (fromHome === "home") {
+    // raman toate categoriile, dar nu e niciuna activă
+    activeLabel.textContent = "Choose a category";
+    localStorage.removeItem("selectedCategory");
+  } else {
+    // încarcă ultima categorie selectată
+    const savedCat = localStorage.getItem("selectedCategory") || "sofas";
+
+    const activeBtn = document.querySelector(`.cat-btn[data-category="${savedCat}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add("active");
+      const label = activeBtn.querySelector("span").textContent;
+      filterCategory(savedCat, label);
+    }
+  }
     const categories = document.querySelectorAll(".category-btn");
 
   categories.forEach(btn => {
     btn.addEventListener("click", () => {
 
-      // SCROLL
+      // scroll automat
       const section = document.getElementById("products");
-      console.log(section); // NU trebuie să fie null
+      console.log(section); // nu găsește secțiunea
 
       section.scrollIntoView({
         behavior: "smooth"

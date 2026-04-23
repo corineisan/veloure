@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Velouré — Your Cart</title>
+  <link rel="icon" type="image/png" sizes="36x36" href="images/logo-negru.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -404,24 +405,45 @@
     const CART_KEY="velour_cart_items", USERS_KEY="velour_users", USER_KEY="velour_user";
     const PROMOS={VELOURE10:10,WELCOME15:15,SAVE20:20};
     let discount=0;
-
-    function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY))||[];}catch{return[];}}
+    const DEFAULT_ITEMS = [{ 
+        id: "bookshelf",
+        name: "Bookshelf",
+        price: 210,
+        img: "images/bookshelf.png",
+        category: "Storage",
+        qty: 1
+        },
+    {
+        id: "banana-bed",
+        name: "Banana Bed",
+        price: 680,
+        img: "images/banana.png",
+        category: "Beds",
+        qty: 1
+    }
+];
+    function getCart() {
+        try {
+        const items = JSON.parse(localStorage.getItem(CART_KEY));
+        return items && items.length ? items : [...DEFAULT_ITEMS];
+        } catch {
+        return [...DEFAULT_ITEMS];
+        }
+    }
     function saveCart(items){localStorage.setItem(CART_KEY,JSON.stringify(items));localStorage.setItem("velour_cart",items.reduce((s,i)=>s+i.qty,0));syncBadge(items);}
     function syncBadge(items){const n=(items||getCart()).reduce((s,i)=>s+i.qty,0);const b=document.getElementById("cart-badge");if(b){b.textContent=n;b.style.display=n>0?"flex":"none";}}
     function getUser(){try{return JSON.parse(localStorage.getItem(USER_KEY));}catch{return null;}}
     function setUser(u){localStorage.setItem(USER_KEY,JSON.stringify(u));}
     function clearUser(){localStorage.removeItem(USER_KEY);}
 
+    localStorage.removeItem("velour_cart_items");
+
     function render(){
       const items=getCart();
       syncBadge(items);
-      const qty=items.reduce((s,i)=>s+i.qty,0);
-      document.getElementById("cart-sub").textContent=qty===0?"Your cart is empty":`${qty} item${qty!==1?"s":""} ready to order`;
+      document.getElementById("cart-sub").textContent =
+      `${items.length} items in your cart`;
       const list=document.getElementById("items-list");
-      if(!items.length){
-        list.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="fa-solid fa-couch"></i></div><h3>Nothing here yet</h3><p>Your cart is waiting to be filled with beautiful pieces.</p><a href="products.html">Browse Collection</a></div>`;
-        updateSummary(items); return;
-      }
       list.innerHTML=items.map((it,i)=>`
         <div class="cart-item" id="ci-${i}" style="animation-delay:${i*55}ms">
           <div class="item-img"><img src="${it.img}" alt="${it.name}" onerror="this.src='images/green-sofa.png'"></div>
@@ -460,7 +482,7 @@
 
     function chQty(i,d){const items=getCart();items[i].qty=Math.max(1,items[i].qty+d);saveCart(items);render();}
     function rmItem(i){const el=document.getElementById("ci-"+i);if(el){el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateX(24px)";setTimeout(()=>{const items=getCart();items.splice(i,1);saveCart(items);render();},280);}}
-    function clearCart(){saveCart([]);render();showToast("Cart cleared");}
+    function clearCart(){saveCart([...DEFAULT_ITEMS]);render();showToast("Cart cleared");}
     function prefill(){const u=getUser();if(!u)return;const n=document.getElementById("f-name"),e=document.getElementById("f-email");if(n&&!n.value)n.value=u.name||"";if(e&&!e.value)e.value=u.email||"";}
 
     function applyPromo(){const c=document.getElementById("promo-in").value.trim().toUpperCase();if(PROMOS[c]){discount=PROMOS[c];updateSummary(getCart());showToast(`🎉 ${discount}% discount applied!`);}else{showToast("Invalid promo code");}}

@@ -1,6 +1,6 @@
 console.log("corineisan");
 function scrollToProducts() {
-  const section = document.getElementById("products");
+  const section = document.getElementById("featuredproducts");
   if (!section) return;
 
   section.scrollIntoView({ behavior: "smooth" });
